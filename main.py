@@ -5,7 +5,6 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from checker import *
 
-
 Window.size = (500 , 700)
 
 Builder.load_file('calc.kv')
@@ -17,6 +16,7 @@ class CalcLayout(GridLayout):
 		else:
 			self.display.text = calc_input[:-1]
 	def checker(self, input_char, calc_input):
+		calc_input = InputFormat.dot(input_char, calc_input)
 		if InputChecker.checker(input_char, calc_input):
 			self.display.text = calc_input + input_char
 	def calculate(self, calc_input):
