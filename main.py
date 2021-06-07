@@ -4,8 +4,11 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
 from kivy.core.window import Window
 from checker import *
+from format_calc import *
 
-Window.size = (500 , 700)
+Window.size = (300,420)
+Window.minimum_height = 420
+Window.minimum_width = 300
 
 Builder.load_file('calc.kv')
 
@@ -16,10 +19,13 @@ class CalcLayout(GridLayout):
 		else:
 			self.display.text = calc_input[:-1]
 	def checker(self, input_char, calc_input):
+		if calc_input == "Error":
+			calc_input = ""
 		calc_input = InputFormat.dot(input_char, calc_input)
 		if InputChecker.checker(input_char, calc_input):
 			self.display.text = calc_input + input_char
 	def calculate(self, calc_input):
+		calc_input = InputFormat.all(calc_input)
 		try:
 			self.display.text = str(eval(calc_input))
 		except Exception:
